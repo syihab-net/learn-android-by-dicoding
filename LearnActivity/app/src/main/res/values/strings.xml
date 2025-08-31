@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Learn Activity</string>
+    <string name="first_name">First Name</string>
+    <string name="enter_your_first_name">Enter your first name</string>
+    <string name="last_name">Last Name</string>
+    <string name="enter_your_last_name">Enter your last name</string>
+    <string name="get_full_name">Get Full Name</string>
+</resources>
