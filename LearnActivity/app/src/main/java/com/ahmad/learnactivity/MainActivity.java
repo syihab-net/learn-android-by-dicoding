@@ -3,69 +3,54 @@ package com.ahmad.learnactivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.ahmad.learnactivity.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private EditText firstName;
-
-    private  EditText lastName;
-
-    private Button btnGetFullName;
-
-    private TextView fullName;
+    private ActivityMainBinding binding;
 
     private static final String STATE_RESULT = "state_result";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        firstName = findViewById(R.id.edit_firt_name);
-        lastName = findViewById(R.id.edit_last_name);
-        btnGetFullName = findViewById(R.id.btn_get_full_name);
-        fullName = findViewById(R.id.result_full_name);
-
-        btnGetFullName.setOnClickListener(this);
+        binding.btnGetFullName.setOnClickListener(this);
 
         if (savedInstanceState != null) {
             String fullNameValue = savedInstanceState.getString(STATE_RESULT);
-            fullName.setText(fullNameValue);
+            binding.resultFullName.setText(fullNameValue);
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_get_full_name) {
-            fullName.setText("");
+            binding.resultFullName.setText("");
             boolean isErrror = false;
 
-            String firstNameValue = firstName.getText().toString().trim();
-            String lastNameValue = lastName.getText().toString().trim();
+            String firstNameValue = binding.editFirtName.getText().toString().trim();
+            String lastNameValue = binding.editLastName.getText().toString().trim();
 
              if (TextUtils.isEmpty(firstNameValue)) {
                  isErrror = true;
-                 firstName.setError("First name is required");
+                 binding.editFirtName.setError("First name is required");
              }
 
              if (TextUtils.isEmpty(lastNameValue)) {
                  isErrror = true;
-                 lastName.setError("Last name is required");
+                 binding.editLastName.setError("Last name is required");
              }
 
              if (!isErrror) {
                  String fullNameValue = firstNameValue + " " + lastNameValue;
 
-                 fullName.setText(String.format("Your full Name is: %s", String.valueOf(fullNameValue)));
+                 binding.resultFullName.setText(String.format("Your full Name is: %s", String.valueOf(fullNameValue)));
              }
         }
     }
@@ -73,6 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(STATE_RESULT, fullName.getText().toString());
+        outState.putString(STATE_RESULT, binding.resultFullName.getText().toString());
     }
 }

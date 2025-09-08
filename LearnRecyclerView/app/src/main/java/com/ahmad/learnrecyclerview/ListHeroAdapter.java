@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ahmad.learnrecyclerview.databinding.ItemRowHeroBinding;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -30,18 +31,18 @@ public class ListHeroAdapter extends RecyclerView.Adapter<ListHeroAdapter.ListVi
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row_hero, parent, false);
-        return new ListViewHolder(view);
+        ItemRowHeroBinding binding = ItemRowHeroBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ListViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Hero hero = listHero.get(position);
-        Glide.with(holder.itemView.getContext())
+        Glide.with(holder.binding.imgItemPhoto.getContext())
             .load(hero.getPhoto()) // URL Gambar
-            .into(holder.imgPhoto); // imageView mana yang akan diterapkan
-        holder.tvName.setText(hero.getName());
-        holder.tvDescription.setText(hero.getDescription());
+            .into(holder.binding.imgItemPhoto); // imageView mana yang akan diterapkan
+        holder.binding.tvItemName.setText(hero.getName());
+        holder.binding.tvItemDescription.setText(hero.getDescription());
 
         holder.itemView.setOnClickListener(v -> onItemClickCallback.onItemClicked(listHero.get(holder.getAdapterPosition())));
     }
@@ -52,14 +53,11 @@ public class ListHeroAdapter extends RecyclerView.Adapter<ListHeroAdapter.ListVi
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgPhoto;
-        TextView tvName, tvDescription;
+        ItemRowHeroBinding binding;
 
-        public ListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgPhoto = itemView.findViewById(R.id.img_item_photo);
-            tvName = itemView.findViewById(R.id.tv_item_name);
-            tvDescription = itemView.findViewById(R.id.tv_item_description);
+        public ListViewHolder(@NonNull ItemRowHeroBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
