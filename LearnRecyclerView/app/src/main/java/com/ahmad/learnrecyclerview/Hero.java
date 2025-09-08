@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 public class Hero implements Parcelable {
     private String name;
     private String description;
-    private Integer photo;
+    private String photo;
 
     public Hero () {}
 
@@ -18,7 +18,7 @@ public class Hero implements Parcelable {
         if (in.readByte() == 0) {
             photo = null;
         } else {
-            photo = in.readInt();
+            photo = in.readString();
         }
     }
 
@@ -50,11 +50,11 @@ public class Hero implements Parcelable {
         this.description = description;
     }
 
-    public Integer getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Integer photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -71,7 +71,7 @@ public class Hero implements Parcelable {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
-            dest.writeInt(photo);
+            dest.writeString(photo);
         }
     }
 }

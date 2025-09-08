@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Hero> getListHeroes() {
         String[] dataName = getResources().getStringArray(R.array.data_name);
         String[] dataDescription = getResources().getStringArray(R.array.data_description);
-        TypedArray dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
+        String[] dataPhoto = getResources().getStringArray(R.array.data_photo);
         ArrayList<Hero> listHero = new ArrayList<>();
         for (int i = 0; i < dataName.length; i++) {
             Hero hero = new Hero();
             hero.setName(dataName[i]);
             hero.setDescription(dataDescription[i]);
-            hero.setPhoto(dataPhoto.getResourceId(i, -1));
+            hero.setPhoto(dataPhoto[i]);
             listHero.add(hero);
         }
         return listHero;

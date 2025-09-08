@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class ListHeroAdapter extends RecyclerView.Adapter<ListHeroAdapter.ListViewHolder> {
@@ -35,7 +37,9 @@ public class ListHeroAdapter extends RecyclerView.Adapter<ListHeroAdapter.ListVi
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Hero hero = listHero.get(position);
-        holder.imgPhoto.setImageResource(hero.getPhoto());
+        Glide.with(holder.itemView.getContext())
+            .load(hero.getPhoto()) // URL Gambar
+            .into(holder.imgPhoto); // imageView mana yang akan diterapkan
         holder.tvName.setText(hero.getName());
         holder.tvDescription.setText(hero.getDescription());
 
